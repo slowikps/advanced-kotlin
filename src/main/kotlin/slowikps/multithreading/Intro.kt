@@ -1,4 +1,4 @@
-package multithreading
+package slowikps.multithreading
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 
 fun main(): Unit = runBlocking { // doesn't stop until all coroutine are done
     (0..20).map {
-        GlobalScope.launch { // launch a new coroutine in background and continue
+        launch { // launch a new coroutine in background and continue
             delay(1000L) // !!!non-blocking!!! delay for 1 second (default time unit is ms)
             println("$it: World!")
         }

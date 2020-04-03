@@ -1,4 +1,4 @@
-package plain
+package slowikps.plain
 
 class Person {
     var name: String? = null

@@ -1,4 +1,4 @@
-package multithreading
+package slowikps.multithreading
 
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.TimeoutCancellationException
