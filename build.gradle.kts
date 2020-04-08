@@ -8,13 +8,15 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven("https://oss.jfrog.org/oss-release-local")
-
+    maven {
+        url = uri("https://oss.jfrog.org/oss-release-local")
+    }
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation( "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
 
     //It is probably safer to use plain java instead
     compile("io.rsocket.kotlin:rsocket-core:0.9.6")

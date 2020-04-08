@@ -6,34 +6,39 @@ import io.rsocket.kotlin.DefaultPayload
 import io.rsocket.kotlin.Payload
 import io.rsocket.kotlin.RSocket
 import io.rsocket.kotlin.RSocketFactory
-import io.rsocket.kotlin.util.AbstractRSocket
-import io.rsocket.transport.okhttp.client.OkhttpWebsocketClientTransport
+import io.rsocket.kotlin.transport.netty.client.TcpClientTransport
+
+fun main() {
+    val client = Client()
+    println(client)
+
+
+    System.`in`.read()
+}
 
 class Client {
-    val client: Single<RSocket> = RSocketFactory               // Requester RSocket
+    private val client = RSocketFactory               // Requester RSocket
         .connect()
-        .acceptor { { requesterRSocket -> handler(requesterRSocket) } }  // Optional handler RSocket
         .transport(
-            OkhttpWebsocketClientTransport       // WebSockets transport
+            TcpClientTransport       // WebSockets transport
                 .create(
-                    Server.getUrl()
+                    Server.port
                 )
         )
         .start()
-
-    private fun handler(requester: RSocket): RSocket {
-        return object : AbstractRSocket() {
-            override fun requestStream(payload: Payload): Flowable<Payload> {
-                println("[Client] I got: $payload")
-                return Flowable.just(DefaultPayload.text("client handler response"))
-            }
+        .map { it.requestStream(DefaultPayload.text("Boom")) }
+        // .map { println(it) }
+        .subscribe{
+            msg: Flowable<Payload> ->
+                println("I got: $msg")
+                msg.subscribe {
+                    another -> println(another.dataUtf8)
+                }
         }
+
+    fun printSth() {
+        println(client)
     }
 
-    fun sendMessage(msg: String) {
-        val request = DefaultPayload.text(msg, "metadata")
-        println(
-            client.blockingGet()
-        )
-    }
+
 }

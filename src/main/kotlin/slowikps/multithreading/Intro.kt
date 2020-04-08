@@ -2,6 +2,7 @@ package slowikps.multithreading
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -11,7 +12,7 @@ fun main(): Unit = runBlocking { // doesn't stop until all coroutine are done
     (0..20).map {
         launch { // launch a new coroutine in background and continue
             delay(1000L) // !!!non-blocking!!! delay for 1 second (default time unit is ms)
-            println("$it: World!")
+            println("$it: World! Job: ${coroutineContext[Job]}, isJobActive: ${coroutineContext[Job]?.isActive}}")
         }
     }.forEach {
         it.join() // no need to do that as we run in the runBlocking context

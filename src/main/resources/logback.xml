@@ -1,0 +1,17 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} %-10thread %-42logger %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="io.rsocket.transport.netty" level="INFO"/>
+    <logger name="io.rsocket.FrameLogger" level="INFO"/> <!--Important to log frames-->
+    <logger name="io.rsocket.fragmentation.FragmentationDuplexConnection" level="INFO"/>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
