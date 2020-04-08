@@ -1,10 +1,8 @@
-package slowikps.rsocket
+package slowikps.rsocket.rxjava
 
 import io.reactivex.Flowable
-import io.reactivex.Single
 import io.rsocket.kotlin.DefaultPayload
 import io.rsocket.kotlin.Payload
-import io.rsocket.kotlin.RSocket
 import io.rsocket.kotlin.RSocketFactory
 import io.rsocket.kotlin.transport.netty.client.TcpClientTransport
 

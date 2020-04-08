@@ -1,4 +1,4 @@
-package slowikps.rsocket
+package slowikps.rsocket.rxjava
 
 import io.reactivex.Flowable
 import io.reactivex.Single
