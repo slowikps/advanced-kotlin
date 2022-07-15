@@ -9,12 +9,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main(): Unit = runBlocking { // doesn't stop until all coroutine are done
-    (0..20).map {
+    val tmp = (0..20).map {
         launch { // launch a new coroutine in background and continue
             delay(1000L) // !!!non-blocking!!! delay for 1 second (default time unit is ms)
             println("$it: World! Job: ${coroutineContext[Job]}, isJobActive: ${coroutineContext[Job]?.isActive}}")
         }
-    }.forEach {
+    }
+
+    tmp.forEach {
         it.join() // no need to do that as we run in the runBlocking context
     }
 
@@ -49,7 +51,7 @@ private fun CoroutineScope.withLaunch() {
 
 class WithScope(private val scope: CoroutineScope) {//scope is used in the suspend function
 
-    suspend fun otherWay()  { // this: CoroutineScope
+    suspend fun otherWay() { // this: CoroutineScope
         scope.launch {
             delay(200L)
             println("Task from runBlocking")
