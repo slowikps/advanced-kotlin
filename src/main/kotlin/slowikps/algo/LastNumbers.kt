@@ -10,7 +10,7 @@ class LastNumbers(private val numbers: Deque<Int>, private val capacity: Int) {
 
     private var multiplication = 1
 
-    constructor(capacity: Int) : this(numbers = LinkedList(), capacity = capacity)
+    constructor(capacity: Int) : this(numbers = LinkedList() /*Doubly-linked list implementation*/, capacity = capacity)
 
 
     fun add(new: Int): LastNumbers {

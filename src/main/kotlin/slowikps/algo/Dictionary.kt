@@ -40,15 +40,16 @@ class Dictionary(
     private fun shorten(
         sentence: String,
         startIdx: Int,
-        tmpDic: MutableMap<String, Int>,
+        subSentence: MutableMap<String, Int>,
         dictionary: Map<String, Int>
     ): Int {
         var newIdx = startIdx
         while (true) {
             val letter = sentence[newIdx].toString()
-            if (tmpDic[letter]!! > (dictionary[letter] ?: 0)) {
+            if (subSentence[letter]!! > (dictionary[letter] ?: 0)) {
                 newIdx += 1
-                tmpDic.compute(letter) { _, v -> v!! - 1 }
+                subSentence[letter] = subSentence[letter]!! - 1
+                //subSentence.merge(letter, -1) { a, b -> a + b }
             } else {
                 break
             }
